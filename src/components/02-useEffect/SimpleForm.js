@@ -41,6 +41,7 @@ export const SimpleForm = () => {
           type="text"
           name="name" 
           placeholder="Tu nombre"
+          className="form-control"
           autoComplete="off"
           value={name}
           onChange={handleInputChange}
@@ -51,13 +52,14 @@ export const SimpleForm = () => {
           type="text"
           name="email" 
           placeholder="Tu Email"
+          className="form-control"
           autoComplete="off"
           value={email}
           onChange={handleInputChange}
         />
       </div>
       {
-        (name == '123' ) && <Message />
+        (name === '123' ) && <Message />
       }
 
     </>
