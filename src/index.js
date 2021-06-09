@@ -19,4 +19,3 @@ ReactDOM.render(
     <Padre />,
   document.getElementById('root')
 );
-
