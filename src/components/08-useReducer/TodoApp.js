@@ -1,27 +1,36 @@
 import React, { useEffect, useReducer } from "react";
 import "./styles.css";
 import { todoReducer } from "./todoReducer";
-import {useForm} from '../../hooks/useForm'
+import { useForm } from "../../hooks/useForm";
 
 const init = () => {
-  return JSON.parse(localStorage.getItem('todos')) || []
-}
+  return JSON.parse(localStorage.getItem("todos")) || [];
+};
 
 export const TodoApp = () => {
   const [todos, dispatch] = useReducer(todoReducer, [], init);
 
-  const [{description}, handleInputChange, reset ] = useForm({
-    description:''
-  })
+  const [{ description }, handleInputChange, reset] = useForm({
+    description: "",
+  });
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
-  }, [todos])
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  const handleDelete = (todoId) => {
+    console.log(todoId);
+    const action = {
+      type: "delete",
+      payload: todoId,
+    };
+    dispatch(action);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (description.trim().length <= 1){
+    if (description.trim().length <= 1) {
       return;
     }
     const newTodo = {
@@ -31,11 +40,11 @@ export const TodoApp = () => {
     };
 
     const action = {
-      type: 'add',
-      payload: newTodo
-    }
-    dispatch(action)
-    reset()
+      type: "add",
+      payload: newTodo,
+    };
+    dispatch(action);
+    reset();
   };
 
   return (
@@ -50,7 +59,9 @@ export const TodoApp = () => {
                 <p className="text-center">
                   {i + 1}. {todo.desc}
                 </p>
-                <button className="btn btn-danger">Borrar</button>
+                <button onClick={() => handleDelete(todo.id)} className="btn btn-danger">
+                  Borrar
+                </button>
               </li>
             ))}
           </ul>
