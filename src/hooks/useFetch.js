@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 export const useFetch = (url) => {
@@ -21,9 +22,9 @@ export const useFetch = (url) => {
       loading: true,
       error: null,
     });
-    fetch(url)
-      .then((resp) => resp.json())
-      .then((data) => {
+    axios.get(url)
+      // .then((resp) => resp.json())
+      .then(({data}) => {
         if (isMounted.current) {
           setState({
             loading: false,
@@ -31,6 +32,13 @@ export const useFetch = (url) => {
             data,
           });
         }
+      })
+      .catch(() => {
+        setState({
+          data:null,
+          loading: false,
+          error: "No se pudo cargar la info",
+        });
       });
   }, [url]);
 
