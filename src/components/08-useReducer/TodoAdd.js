@@ -21,7 +21,7 @@ export const TodoAdd = ({ handleAddTodo }) => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <h4>Agregar TODO</h4>
       <hr />
       <form onSubmit={handleSubmit}>
@@ -41,6 +41,6 @@ export const TodoAdd = ({ handleAddTodo }) => {
           Agregar
         </button>
       </form>
-    </>
+    </React.Fragment>
   );
 };
