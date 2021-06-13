@@ -5,7 +5,12 @@ import { TodoList } from "./TodoList";
 import { TodoAdd } from "./TodoAdd";
 
 const init = () => {
-  return JSON.parse(localStorage.getItem("todos")) || [];
+  let lc = null;
+  if ( typeof window !== 'undefined' && window.localStorage !== undefined) {
+    lc = localStorage.getItem('todos')
+  }
+  
+  return JSON.parse(lc) || [];
 };
 
 export const TodoApp = () => {
@@ -14,7 +19,9 @@ export const TodoApp = () => {
  
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    if (typeof window !== "undefined" && window.localStorage !== undefined) {
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
   }, [todos]);
 
   const handleDelete = (todoId) => {
